@@ -1,0 +1,15 @@
+##### Portworx persistent volume claim
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+   name: fiopvc
+   annotations:
+     volume.beta.kubernetes.io/storage-class: fiosc
+spec:
+   accessModes:
+     - ReadWriteOnce
+   resources:
+     requests:
+       storage: 100Gi
+---
