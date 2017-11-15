@@ -1,0 +1,27 @@
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  # format is name.<new_snapshot_name>-source.<old_pvc_name>
+  name: name.snap1-source.px-pvc-1
+  annotations:
+    volume.beta.kubernetes.io/storage-class: px-sc-1
+spec:
+   accessModes:
+     - ReadWriteOnce
+   resources:
+     requests:
+       storage: 1Gi
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  # format is name.<new_snapshot_name>-source.<old_pvc_name>
+  name: name.snap2-source.px-pvc-2
+  annotations:
+    volume.beta.kubernetes.io/storage-class: px-sc-2
+spec:
+   accessModes:
+     - ReadWriteOnce
+   resources:
+     requests:
+       storage: 2Gi

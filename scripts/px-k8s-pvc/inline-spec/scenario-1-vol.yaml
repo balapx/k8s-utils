@@ -1,0 +1,58 @@
+##### Portworx storage class
+kind: StorageClass
+apiVersion: storage.k8s.io/v1beta1
+metadata:
+    name: px-sc-1
+provisioner: kubernetes.io/portworx-volume
+parameters:
+   fs: "ext4"
+   block_size: "1024k"
+   repl: "2"
+   shared: "true"
+   group: "abc"
+   fg: "true"
+   label: "name=qa"
+   aggregation_level: "1"
+   snap_interval: "120"
+   priority_io: "low"
+---
+##### Portworx persistent volume claim
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+   name: px-pvc-1
+   annotations:
+     volume.beta.kubernetes.io/storage-class: px-sc-1
+spec:
+   accessModes:
+     - ReadWriteOnce
+   resources:
+     requests:
+       storage: 1Gi
+---
+##### Portworx storage class
+kind: StorageClass
+apiVersion: storage.k8s.io/v1beta1
+metadata:
+    name: px-sc-2
+provisioner: kubernetes.io/portworx-volume
+parameters:
+   fs: "xfs"
+   block_size: "128k"
+   repl: "1"
+   priority_io: "high"
+   sticky: "true" 
+---
+##### Portworx persistent volume claim
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+   name: px-pvc-2
+   annotations:
+     volume.beta.kubernetes.io/storage-class: px-sc-2
+spec:
+   accessModes:
+     - ReadWriteOnce
+   resources:
+     requests:
+       storage: 2Gi
