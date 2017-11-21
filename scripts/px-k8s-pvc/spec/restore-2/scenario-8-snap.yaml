@@ -1,0 +1,17 @@
+##### Portworx persistent volume claim
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+   namespace: dev
+   name: ns.dev-name.px-snap-8 
+   annotations:
+     volume.beta.kubernetes.io/storage-class: px-sc-8
+     px/snapshot-source-pvc: px-pvc-8
+spec:
+   accessModes:
+     - ReadWriteOnce
+   resources:
+      requests:
+         storage: 8Gi
+---

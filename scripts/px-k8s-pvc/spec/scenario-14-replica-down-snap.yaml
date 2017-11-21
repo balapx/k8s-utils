@@ -1,0 +1,15 @@
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  namespace: dev
+  name: ns.dev-name.px-snap-14
+  annotations:
+    volume.beta.kubernetes.io/storage-class: px-sc-14
+    px/snapshot-source-pvc: px-pvc-14
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 14Gi
+---

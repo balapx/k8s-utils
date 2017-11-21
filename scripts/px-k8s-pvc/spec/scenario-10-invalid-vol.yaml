@@ -1,0 +1,61 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: dev
+  labels:
+    name: dev
+---
+##### Portworx storage class
+kind: StorageClass
+apiVersion: storage.k8s.io/v1beta1
+metadata:
+    name: px-sc-10
+provisioner: kubernetes.io/portworx-volume
+parameters:
+   fs: "ext4"
+   repl: "2"
+   shared: "true"
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  # format is name.<new_snapshot_name>-source.<old_pvc_name>
+  name: name.snap10-source.px-pvc-10
+  annotations:
+    volume.beta.kubernetes.io/storage-class: px-sc-10
+spec:
+   accessModes:
+     - ReadWriteOnce
+   resources:
+     requests:
+       storage: 10Gi
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  namespace: dev
+  name: ns.dev-name.px-snap-10
+  annotations:
+    volume.beta.kubernetes.io/storage-class: px-sc-10
+    px/snapshot-source-pvc: px-pvc-10
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  namespace: default
+  name: ns.default-name.px-snap-10
+  annotations:
+    volume.beta.kubernetes.io/storage-class: px-sc-10
+    px/snapshot-source-pvc: px-pvc-10
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi

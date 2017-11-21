@@ -1,0 +1,14 @@
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1beta1
+metadata:
+   name: node-get-put-list-role
+rules:
+- apiGroups: [""]
+  resources: ["nodes"]
+  verbs: ["watch", "get", "update", "list"]
+- apiGroups: [""]
+  resources: ["pods"]
+  verbs: ["get", "list"]
+- apiGroups: [""]
+  resources: ["persistentvolumeclaims"]
+  verbs: ["get", "list"]

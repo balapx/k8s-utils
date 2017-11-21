@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  namespace: dev
+  name: ankitkubefio
+spec:
+  containers:
+  - name: fiocon
+    image: ankitgd/fio_drv
+    imagePullPolicy: "IfNotPresent"
+    volumeMounts:
+    - mountPath: /mnt/v1
+      name: fiokdeployvol
+    args:
+      ["--size=1G",
+       "--name=test",
+       "--readwrite=write",
+       "--directory=/mnt/v1",
+       "--ioengine=libaio",
+       "--filename=file3.txt"]
+  restartPolicy: Never
+  volumes:
+  - name: fiokdeployvol
+    persistentVolumeClaim:
+      claimName: ns.dev-name.px-snap-8

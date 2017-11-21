@@ -1,23 +1,32 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: dev
+  labels:
+    name: dev
+---
 ##### Portworx storage class
 kind: StorageClass
 apiVersion: storage.k8s.io/v1beta1
 metadata:
-    name: px-sc-3
+    name: px-sc-14
 provisioner: kubernetes.io/portworx-volume
 parameters:
-   snap_interval: "60"
+   repl: "3"
+   shared: "true"
 ---
 ##### Portworx persistent volume claim
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-   name: px-pvc-3
+   name: px-pvc-14
+   namespace: dev
    annotations:
-     volume.beta.kubernetes.io/storage-class: px-sc-3
+     volume.beta.kubernetes.io/storage-class: px-sc-14
 spec:
    accessModes:
      - ReadWriteOnce
    resources:
      requests:
-       storage: 3Gi
+       storage: 14Gi
 ---

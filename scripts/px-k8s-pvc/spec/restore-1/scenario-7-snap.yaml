@@ -1,0 +1,15 @@
+##### Portworx persistent volume claim
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+   name: name.snap001-source.px-pvc-7
+   annotations:
+     volume.beta.kubernetes.io/storage-class: px-sc-7
+spec:
+   accessModes:
+     - ReadWriteOnce
+   resources:
+      requests:
+         storage: 7Gi
+---

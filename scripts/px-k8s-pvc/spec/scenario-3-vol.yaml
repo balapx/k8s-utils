@@ -1,0 +1,37 @@
+##### Portworx storage class
+kind: StorageClass
+apiVersion: storage.k8s.io/v1beta1
+metadata:
+    name: px-sc-3
+provisioner: kubernetes.io/portworx-volume
+parameters:
+   snap_interval: "60"
+---
+##### Portworx persistent volume claim
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+   name: px-pvc-3.0
+   annotations:
+     volume.beta.kubernetes.io/storage-class: px-sc-3
+spec:
+   accessModes:
+     - ReadWriteOnce
+   resources:
+     requests:
+       storage: 3Gi
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  # format is name.<new_snapshot_name>-source.<old_pvc_name>
+  name: name.vol.snap-1-source.px-pvc-3.0
+  annotations:
+    volume.beta.kubernetes.io/storage-class: px-sc-3
+spec:
+   accessModes:
+     - ReadWriteOnce
+   resources:
+     requests:
+       storage: 2Gi
+---

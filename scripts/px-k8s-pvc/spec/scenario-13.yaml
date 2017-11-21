@@ -1,0 +1,70 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: dev
+  labels:
+    name: dev
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: prod 
+  labels:
+    name: prod
+---
+##### Portworx storage class
+kind: StorageClass
+apiVersion: storage.k8s.io/v1beta1
+metadata:
+    name: px-sc-13
+provisioner: kubernetes.io/portworx-volume
+parameters:
+   fs: "ext4"
+   repl: "2"
+   shared: "true"
+---
+##### Portworx persistent volume claim
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+   name: px-pvc-13
+   namespace: dev
+   annotations:
+     volume.beta.kubernetes.io/storage-class: px-sc-13
+spec:
+   accessModes:
+     - ReadWriteOnce
+   resources:
+     requests:
+       storage: 13Gi
+---
+##### Portworx persistent volume claim
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+   name: px-pvc-13
+   namespace: prod
+   annotations:
+     volume.beta.kubernetes.io/storage-class: px-sc-13
+spec:
+   accessModes:
+     - ReadWriteOnce
+   resources:
+     requests:
+       storage: 13Gi
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  namespace: prod
+  name: ns.default-name.px-snap-13
+  annotations:
+    volume.beta.kubernetes.io/storage-class: px-sc-13
+    px/snapshot-source-pvc: px-pvc-13
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 13Gi
+---
