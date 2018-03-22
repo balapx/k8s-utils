@@ -1,0 +1,140 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: prod-1
+  labels:
+    name: prod-1
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: prod-2
+  labels:
+    name: prod-2
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: prod-3
+  labels:
+    name: prod-3
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: prod-4
+  labels:
+    name: prod-4
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: prod-5
+  labels:
+    name: prod-5
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: prod-6
+  labels:
+    name: prod-6
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: prod-7
+  labels:
+    name: prod-7
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: prod-8
+  labels:
+    name: prod-8
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: prod-9
+  labels:
+    name: prod-9
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: prod-10
+  labels:
+    name: prod-10
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: prod-11
+  labels:
+    name: prod-11
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: prod-12
+  labels:
+    name: prod-12
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: prod-13
+  labels:
+    name: prod-13
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: prod-14
+  labels:
+    name: prod-14
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: prod-15
+  labels:
+    name: prod-15
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: prod-16
+  labels:
+    name: prod-16
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: prod-17
+  labels:
+    name: prod-17
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: prod-18
+  labels:
+    name: prod-18
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: prod-19
+  labels:
+    name: prod-19
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: prod-20
+  labels:
+    name: prod-20
+---
