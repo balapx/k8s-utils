@@ -1,6 +1,6 @@
 #!/bin/bash
 
-for i in {11..20};
+for i in {1..100};
 do
 echo "Creating secret for mysql..."
 kubectl create secret -n=prod-$i generic mysql-pass --from-file=password.txt
