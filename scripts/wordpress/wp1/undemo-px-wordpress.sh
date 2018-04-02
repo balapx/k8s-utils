@@ -1,6 +1,6 @@
 #!/bin/bash -x
 
-for i in {1..1};
+for i in {1..100};
 do
 echo "Deleting secret for mysql..."
 kubectl delete secret -n=prod-$i mysql-pass
