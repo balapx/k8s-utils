@@ -1,0 +1,48 @@
+#!/bin/sh -e
+
+DIR=$1
+MODE=$2
+
+echo -n "Checking for filesystem read on $DIR... "
+ls $DIR > /dev/null
+echo "Succeeded"
+
+if [ "$MODE" != "RO" ]; then
+    SUBDIR=".lw-health-check-$HOSTNAME"
+    echo -n "Creating a subdir in $DIR... "
+    mkdir -p $DIR/$SUBDIR
+    if [ $? -eq 0 ]; then
+        echo "Succeeded"
+    else
+        echo "Failed"
+        exit 1
+    fi
+
+    echo -n "Writing test file to $DIR... "
+    echo "test" > $DIR/$SUBDIR/test
+    if [ $? -eq 0 ]; then
+        echo "Succeeded"
+    else
+        echo "Failed"
+        exit 1
+    fi
+
+    echo -n "Checking test file contents... "
+    CHECK=$(cat $DIR/$SUBDIR/test)
+    if [ "$CHECK" = "test" ]; then
+        echo "Succeeded"
+    else
+        echo "Failed"
+        exit 1
+    fi
+
+    #echo -n "Removing test subdir from $DIR... "
+    #rm -rf $DIR/$SUBDIR
+    #if [ $? -eq 0 ]; then
+    #    echo "Succeeded"
+    #else
+    #    echo "Failed"
+    #    exit 1
+    #fi
+
+fi

@@ -1,0 +1,60 @@
+kind: StorageClass
+apiVersion: storage.k8s.io/v1beta1
+metadata:
+    name: probe-sc
+provisioner: kubernetes.io/portworx-volume
+parameters:
+   repl: "2"
+---
+##### Portworx persistent volume claim
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+   name: probe-pvc
+   annotations:
+     volume.beta.kubernetes.io/storage-class: probe-sc
+spec:
+   accessModes:
+     - ReadWriteOnce
+   resources:
+     requests:
+       storage: 11Gi
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: probe-deployment
+  labels:
+    app: probe
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: probe
+  template:
+    metadata:
+      labels:
+        app: probe
+    spec:
+      containers:
+      - name: probe
+        image: balapx/health_probe3_append
+        imagePullPolicy: Always
+        livenessProbe:
+          exec:
+            command:
+            - /usr/local/bin/lw-check-all
+            - -disk
+            - /var/www/html
+          failureThreshold: 3
+          initialDelaySeconds: 5
+          periodSeconds: 10
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - name: probe-storage
+          mountPath: /var/www/html
+      volumes:
+      - name: probe-storage
+        persistentVolumeClaim:
+          claimName: probe-pvc

@@ -1,0 +1,6 @@
+#!/bin/sh
+
+# since we'll be using liveness and readiness probes we don't need the actual container to do anything, so just sleep forever
+while true; do
+    sleep 600
+done

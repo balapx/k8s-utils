@@ -1,0 +1,22 @@
+#!/bin/sh
+
+DIR=$( cd $( dirname "$0" ) && pwd )
+
+SUB_CMD=""
+SUB_ARGS=""
+for ARG in "$@"
+do
+    if [ $ARG = "-disk" ]; then
+        if [ ! -z $SUB_CMD ]; then
+            $DIR/$SUB_CMD $SUB_ARGS
+        fi
+        SUB_CMD="lw-check$ARG"
+        SUB_ARGS=""
+    else
+        SUB_ARGS="$SUB_ARGS $ARG"
+    fi
+done
+
+if [ ! -z $SUB_CMD ]; then
+    $DIR/$SUB_CMD $SUB_ARGS
+fi
